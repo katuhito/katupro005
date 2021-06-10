@@ -25,7 +25,7 @@ SECRET_KEY = 'qf1vpjco6d=ysv7co==ld7w$+&5f3^^x2k&d*#t@ec&c4l+gm1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.33.10']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'katuapp005',
 ]
 
 MIDDLEWARE = [
