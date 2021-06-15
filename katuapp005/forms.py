@@ -6,12 +6,10 @@ class HelloForm(forms.Form):
     age = forms.IntegerField(label='age', widget=forms.NumberInput(attrs={'class':'form-control'}))
     chck = forms.BooleanField(label='Checkbox', required=False)
     check = forms.NullBooleanField(label='Check')
-    # data = [
-    #     ('one', 'item 1'),
-    #     ('two', 'item 2'),
-    #     ('three', 'item 3')
-    # ]
-    # choice = forms.ChoiceField(label='Choice', choices=data)
+
+# class HelloForm2(forms.Form):
+#     id = forms.IntegerField(label='ID')
+
 
 
 

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from .forms import HelloForm
+from .models import Friend
 
 class HelloView(TemplateView):
 
@@ -9,8 +10,9 @@ class HelloView(TemplateView):
         self.params = {
             'title':'Hello',
             'message':'your data',
-            'form': HelloForm(), 
-            # 'result': None
+            'form': HelloForm(),  
+            'messages':'all friends.', 
+           
         }
 
     def get(self, request):
@@ -23,19 +25,19 @@ class HelloView(TemplateView):
                     '</b> ですね。'
         self.params['message'] = msg
 
+        #Checkbox
         if ('chck' in request.POST):
             self.params['results'] = 'Checked!!'
         else:
             self.params['results'] = 'not checked...'
 
+        #Check
         chk = request.POST['check']
         self.params['result'] = 'you selected: "' + chk + '".'
-
-        # ch = request.POST['choice']
-        # self.params['result'] = 'selected: "' + ch + '".'
-
         self.params['form'] = HelloForm(request.POST)
         return render(request, 'katuapp005/index.html', self.params)
+
+   
 
         
         
