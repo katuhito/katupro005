@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-from .forms import HelloForm
+from .forms import HelloForm, HelloForm2
 from .models import Friend
 
 class HelloView(TemplateView):
@@ -11,8 +11,7 @@ class HelloView(TemplateView):
             'title':'Hello',
             'message':'your data',
             'form': HelloForm(),  
-            'messages':'all friends.', 
-           
+            'messages':'all friends.',   
         }
 
     def get(self, request):
@@ -36,6 +35,31 @@ class HelloView(TemplateView):
         self.params['result'] = 'you selected: "' + chk + '".'
         self.params['form'] = HelloForm(request.POST)
         return render(request, 'katuapp005/index.html', self.params)
+
+class HelloView2(TemplateView):
+    template_name = "katuapp005/friends.html"
+
+    def __init__(self):
+        self.params = {
+            'title': 'Hello',
+            'message': 'Select friends.',
+            'form': HelloForm2(),
+            'data': [],
+        }
+
+    def get(self, request):
+        return render(request, 'katuapp005/friends.html', self.params)
+
+    def post(self, request):
+        # self.data = Friend.objects.all()
+        if(request.method == 'POST'):
+            self.num = request.POST['id']
+            self.item = Friend.objects.get(id=self.num)
+            self.params['data'] = [self.item]
+            self.params['form'] = HelloForm2(request.POST)
+        else:
+            self.params['data'] = Friend.objects.all()
+        return render(request, 'katuapp005/friends.html', self.params)
 
    
 
