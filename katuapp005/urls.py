@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 from . import views
-from .views import HelloView, HelloView2, HelloView3, HelloView4
+from .views import HelloView, HelloView2, HelloView3, HelloView4, HelloView5
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('friends', HelloView2.as_view(), name='friends'),
     path('index2', HelloView3.as_view(), name='index2'),
     path('create', HelloView4.as_view(), name='create'),
+    path('edit/<int:num>', HelloView5.as_view(), name='edit'),
 ]

@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
-from .forms import HelloForm, HelloForm2, HelloForm3
+from .forms import HelloForm, HelloForm2, FriendForm
 from .models import Friend
+from django.urls import reverse_lazy
 
 class HelloView(TemplateView):
 
@@ -84,23 +85,58 @@ class HelloView4(TemplateView):
     def __init__(self):
         self.params = {
             'title': 'Hello',
-            'form': HelloForm3,
+            'form': FriendForm(),
         }
     
     def get(self, request):
         return render(request, 'katuapp005/create.html', self.params)
 
     def post(self, request):
+        # if (request.method == 'POST'):
+        #     self.name = request.POST['name']
+        #     self.mail = request.POST['mail']
+        #     self.gender = 'gender' in request.POST
+        #     self.age = int(request.POST['age'])
+        #     self.birth = request.POST['birthday']
+        #     self.friend = Friend(name=self.name, mail=self.mail, gender=self.gender, age=self.age, birthday=self.birth)
+        #     self.friend.save()
+        #     return redirect(to='/katuapp005/index2')
         if (request.method == 'POST'):
-            self.name = request.POST['name']
-            self.mail = request.POST['mail']
-            self.gender = 'gender' in request.POST
-            self.age = int(request.POST['age'])
-            self.birth = request.POST['birthday']
-            self.friend = Friend(name=self.name, mail=self.mail, gender=self.gender, age=self.age, birthday=self.birth)
+            self.obj = Friend()
+            self.friend = FriendForm(request.POST, instance=self.obj)
             self.friend.save()
             return redirect(to='/katuapp005/index2')
         return render(request, 'katuapp005/create.html', self.params)
+
+
+class HelloView5(TemplateView):
+    template_name = "katuapp005/edit.html"
+    
+
+    def __init__(self):
+        self.params = {
+            'title': 'Hello',
+            'id': num,
+            'form': FriendForm(instance=obj),
+            }
+        
+    
+    def get(self, request, num):
+        self.num = request.GET['num']
+        return render(request, 'katuapp005/edit.html', self.params)
+
+    def post(self, request, num):
+        # self.num = request.POST['id']
+        self.obj = Friend.objects.get(id=self.num)
+        if (request.method == 'POST'):
+            self.obj = Friend()
+            self.friend = FriendForm(request.POST, instance=self.obj)
+            self.friend.save()
+            return redirect(to='/katuapp005/index2')
+        return render(request, 'katuapp005/edit.html', self.params)
+
+
+
 
    
 
