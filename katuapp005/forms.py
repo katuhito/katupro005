@@ -8,8 +8,8 @@ class HelloForm(forms.Form):
     chck = forms.BooleanField(label='Checkbox', required=False)
     check = forms.NullBooleanField(label='Check')
 
-class HelloForm2(forms.Form):
-    id = forms.IntegerField(label='ID')
+# class HelloForm2(forms.Form):
+#     id = forms.IntegerField(label='ID')
 
 # class HelloForm3(forms.Form):
 #     name =forms.CharField(label='Name', widget=forms.TextInput(attrs={'class':'form-control'}))
