@@ -5,7 +5,18 @@ from .models import Friend
 #from .forms import HelloForm
 from .forms import FriendForm
 
+#ジェネリックビュー
+from django.views.generic import ListView, DetailView
 
+class FriendList(ListView):
+    model = Friend
+
+class FriendDetail(DetailView):
+    model = Friend
+
+
+#CURD:function base
+#index2
 def index(request):
     data = Friend.objects.all()
     params = {
@@ -15,7 +26,7 @@ def index(request):
     }
     return render(request, 'katuapp005/index2.html', params)
 
-
+#create
 def create(request):
     if (request.method == 'POST'):
         obj = Friend()
@@ -28,6 +39,7 @@ def create(request):
     }
     return render(request, 'katuapp005/create.html', params)
 
+#edit
 def edit(request, num):
     obj = Friend.objects.get(id=num)
     if (request.method == 'POST'):
@@ -40,6 +52,19 @@ def edit(request, num):
         'form': FriendForm(instance=obj),
     }
     return render(request, 'katuapp005/edit.html', params)
+
+#delete
+def delete(request, num):
+    friend = Friend.objects.get(id=num)
+    if (request.method == 'POST'):
+        friend.delete()
+        return redirect(to='/katuapp005/index2')
+    params = {
+        'title': 'Hello',
+        'id': num,
+        'obj': friend,
+    }
+    return render(request, 'katuapp005/delete.html', params)
 
 
 
