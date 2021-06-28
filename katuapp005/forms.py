@@ -24,6 +24,11 @@ class FriendForm(forms.ModelForm):
         fields = ['name', 'mail', 'gender', 'age', 'birthday']
 
 
+#検索
+class FindForm(forms.Form):
+    find = forms.CharField(label='Find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
+
+
 
 
 

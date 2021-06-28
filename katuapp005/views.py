@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from .models import Friend
 #from .forms import HelloForm
 from .forms import FriendForm
+from .forms import FindForm
 
 #ジェネリックビュー
 from django.views.generic import ListView, DetailView
@@ -65,6 +66,26 @@ def delete(request, num):
         'obj': friend,
     }
     return render(request, 'katuapp005/delete.html', params)
+
+#find
+def find(request):
+    if (request.method == 'POST'):
+        form = FindForm(request.POST)
+        find = request.POST['find']
+        data = Friend.objects.filter(name__contains=find)
+        msg = 'Result: ' + str(data.count())
+    else:
+        msg = 'search words...'
+        form = FindForm()
+        data = Friend.objects.all()
+    params = {
+        'title': 'Hello',
+        'message': msg,
+        'form': form,
+        'data': data,
+    }
+    return render(request, 'katuapp005/find.html', params)
+
 
 
 

@@ -18,4 +18,6 @@ urlpatterns = [
     #ジェネリックビュー
     path('list', FriendList.as_view()),
     path('detail/<int:pk>', FriendDetail.as_view()),
+    #検索
+    path('find', views.find, name='find'),
 ]
