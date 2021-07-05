@@ -5,6 +5,8 @@ from .models import Friend
 #from .forms import HelloForm
 from .forms import FriendForm
 from .forms import FindForm
+from .forms import CheckForm
+
 from django.db.models import Count, Sum, Avg, Min, Max
 
 #ジェネリックビュー
@@ -98,6 +100,23 @@ def find(request):
         'data': data,
     }
     return render(request, 'katuapp005/find.html', params)
+
+#check
+def check(request):
+    params = {
+        'title': 'Hello',
+        'message':'check validation',
+        'form': CheckForm(),
+    }
+    if (request.method == 'POST'):
+        form = CheckForm(request.POST)
+        params['form'] = form
+        if (form.is_valid()):
+            params['message'] = 'OK!'
+        else:
+            params['message'] = 'no good.'
+    return render(request, 'katuapp005/check.html', params)
+
 
 
 
